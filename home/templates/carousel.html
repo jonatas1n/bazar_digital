@@ -1,0 +1,82 @@
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'home/css/carousel.css' %}">
+
+<div id="carousel" class="container">
+    {% if products|length > 0 %}
+        <div class="carousel__cards">
+            {% for product in products %}
+                <a href="/product/{{product.id}}" class="card shadow carousel__card {% if forloop.first %} active {% endif %}">
+                    {% if product.image %}
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+                    {% endif %}
+                    <div class="card-body">
+                        {{ product.name }}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="carousel__footer">
+            <div class="carousel__btns">
+                <button class="btn btn-primary" onclick="prevCard()" id="carousel__btn-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="btn btn-primary" onclick="nextCard()" id="carousel__btn-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="carousel__dots">
+                {% for product in products %}
+                    <div class="carousel__dot {% if forloop.first %} active {% endif %}" onclick="selectCard({{ forloop.counter0 }})"></div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="card shadow caroulsel__card">
+            <div class="card-body">
+                <p>Sem produtos registrados.</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+
+<script>
+    let selectedCardIndex = 0;
+    const dots = document.querySelectorAll('.carousel__dot');
+    const cards = document.querySelectorAll('.carousel__card');
+
+    function selectCard(cardIndex) {
+        if (cardIndex >= cards.length) {
+            cardIndex = 0;
+        }
+        if (cardIndex < 0) {
+            cardIndex = cards.length - 1;
+        }
+        let selectedCard = cards[selectedCardIndex];
+        let selectedDot = dots[selectedCardIndex];
+        selectedCardIndex = cardIndex;
+        selectedCard.classList.remove('active');
+        selectedDot.classList.remove('active');
+        selectedCard = cards[cardIndex];
+        selectedDot = dots[cardIndex];
+        selectedDot.classList.add('active');
+        selectedCard.classList.add('active');
+    }
+
+    function nextCard() {
+        selectCard(selectedCardIndex + 1);
+    }
+
+    function prevCard() {
+        selectCard(selectedCardIndex - 1);
+    }
+
+    selectCard(selectedCardIndex);
+
+    setInterval(() => {
+        nextCard();
+    }, 5000);
+
+</script>

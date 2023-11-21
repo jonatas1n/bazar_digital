@@ -1,0 +1,38 @@
+{% extends 'includes/base.html' %}
+{% load carousel static %}
+
+
+{% block title %}Bazar Digital{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+    {% carousel %}
+
+    <div id="store__list" class="container">
+        {% for category, product in products.items %}
+            <div class="category__container">
+                <div class="category__header">
+                    <h2><span class="mark"></span>{{ category.name }}</h2>
+                    <a href="/product?category={{category.name}}">Ver mais</a>
+                </div>
+                <div class="category__container__products">
+                    {% for product in product %}
+                        <div class="store__item card">
+                            <div class="store__item__image">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                {% endif %}
+                            </div>
+                            <div class="store__item__info card-body">
+                                <h3>{{ product.name }}</h3>
+                                <p>{{ product.description }}</p>
+                                <p class="store__item__price">R$ {{ product.price }}</p>
+                                <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">Ver detalhes</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

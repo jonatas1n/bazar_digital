@@ -1,0 +1,9 @@
+button, .btn-primary {
+    background: var(--purple-color) !important;
+    border-color: var(--purple-color) !important;
+}
+
+.card button {
+    background-color: var(--purple-color) !important;
+    border-color: var(--purple-color) !important;
+}

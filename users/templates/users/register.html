@@ -1,0 +1,45 @@
+{% extends 'includes/base.html' %}
+
+{% block title %}Bazar Digital - Registro{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card card-sm">
+            <div class="card-body">
+                <h5 class="card-title">Registro</h5>
+                <form action="/users/register/" method="post">
+                    {% comment %} {{ form.as_p }} {% endcomment %}
+                    {{ form.errors }}
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <div class="mb-3">
+                        <label>Usuário</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Usuário">
+                    </div>
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                    </div>
+                    <div class="mb-3">
+                        <label>Nome</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Nome">
+                    </div>
+                    <div class="mb-3">
+                        <label>Data de nascimento</label>
+                        <input type="date" class="form-control" name="date_of_birth" id="date_of_birth" placeholder="Data de nascimento">
+                    </div>
+                    <div class="mb-3">
+                        <label>Senha</label>
+                        <input type="password" class="form-control" name="password1" id="password1" placeholder="Senha">
+                    </div>
+                    <div class="mb-3">
+                        <label>Confirmar Senha</label>
+                        <input type="password" class="form-control" name="password2" id="password2" placeholder="Confirmar Senha">
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

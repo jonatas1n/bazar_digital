@@ -1,0 +1,30 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}Bazar Digital - {{category}}{% endblock %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'home/css/products.css' %}">
+    <div class="container">
+        <h2>{{category}}</h2>
+        <div class="product__list">
+            {% for product in products %}
+                <div class="store__item card">
+                    <div class="store__item__image">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="store__item__info card-body">
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.description }}</p>
+                        <p class="store__item__price">R$ {{ product.price }}</p>
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">Ver detalhes</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}
